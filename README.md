@@ -1,16 +1,16 @@
-**Winter 2020 Data Science Internship Challenge Answer **
+# Winter 2020 Data Science Internship Challenge Answer
 
-_Prepared by Sivasankar S_
+<div align="center"> Prepared by Sivasankar S </div>
 
-**Question 1: **
+## Question 1: 
 
 After analysing the dataset, I can find outliers. So I removed outliers using IQR Method. Then grouped the dataset by shop_id and user_id to find the average revenue per shop and average revenue per user.
 
 a. Think about what could be going wrong with our calculation. Think about a better way to evaluate this data. 
 
 Answer: 
-
-	There are **outliers** in the Dataset which is affecting the calculation. Removing outliers from the dataset will be a better way to evaluate.
+There are **outliers** in the Dataset which is affecting the calculation. Removing outliers from the dataset will be a better way to evaluate.
+	
 
 b. What metric would you report for this dataset?
 
@@ -36,60 +36,47 @@ Answer:
 
 **Github Link:** [Challenge Solution Colab Link](https://github.com/ss-shankar/intershipchallenge-shopify/blob/main/Data_Science_Intern_Challenge.ipynb)
 
-**Question:2**
+## Question:2 
 
 _a. How many orders were shipped by Speedy Express in total?_
 
 Answer:
-
-	**54**
-
-SQL Query:
-
+**54**
 	
 
-	SELECT COUNT(ShipperName)
+SQL Query:
 
-FROM Orders
+SELECT COUNT(ShipperName)<br/>
+FROM Orders<br/>
+JOIN Shippers ON Shippers.ShipperID = Orders.ShipperID<br/>
+WHERE ShipperName = 'Speedy Express'<br/>
 
-JOIN Shippers ON Shippers.ShipperID = Orders.ShipperID
 
-WHERE ShipperName = 'Speedy Express'
-
-_b. What is the last name of the employee with the most orders?_
+b. What is the last name of the employee with the most orders?
 
 Answer:
-
-	**Peacock**
+**Peacock**
+	
 
 SQL Query:
 
-	SELECT Employees.LastName, COUNT(*)AS Most
+SELECT Employees.LastName, COUNT(*)AS Most<br/>
+FROM Orders<br/>
+JOIN Employees ON Employees.EmployeeID = Orders.EmployeeID<br/>
+GROUP BY LastName ORDER BY Most DESC <br/>
 
-FROM Orders
 
-JOIN Employees ON Employees.EmployeeID = Orders.EmployeeID
-
-GROUP BY LastName ORDER BY Most DESC 
-
-_c.. What product was ordered the most by customers in Germany?_
+c. What product was ordered the most by customers in Germany?
 
 Answer: 
-
 **Gorgonzola Telino**
 
 SQL Query:
 
-	SELECT Products.ProductName, COUNT(*)AS Total
-
-FROM Customers
-
-JOIN Orders ON Orders.CustomerID = Customers.CustomerID 
-
-JOIN OrderDetails ON OrderDetails.OrderID = Orders.OrderID
-
-JOIN Products ON Products.ProductID = OrderDetails.ProductID
-
-WHERE Country = 'Germany'
-
-GROUP BY Products.ProductName ORDER BY Total DESC
+SELECT Products.ProductName, COUNT(*)AS Total<br/>
+FROM Customers<br/>
+JOIN Orders ON Orders.CustomerID = Customers.CustomerID <br/>
+JOIN OrderDetails ON OrderDetails.OrderID = Orders.OrderID<br/>
+JOIN Products ON Products.ProductID = OrderDetails.ProductID<br/>
+WHERE Country = 'Germany'<br/>
+GROUP BY Products.ProductName ORDER BY Total DESC<br/>
